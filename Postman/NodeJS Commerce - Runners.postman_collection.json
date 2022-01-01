@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "aeee5372-e613-4924-8863-6411149116ff",
+		"name": "NodeJS Commerce - Runners",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create New Product",
+			"item": [
+				{
+					"name": "UserCreate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const Ajv = require(\"ajv\");",
+									"const ajv = Ajv();",
+									"",
+									"pm.test(\"Success status code check \",()=>{",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test(\"Response body must contain username and ID\",()=>{",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.username).to.equal(JSON.parse(pm.request.body).username);",
+									"    pm.expect(responseData.id).to.be.not.null;",
+									"})",
+									"",
+									"pm.test(\"Schema validation\",()=>{",
+									"    const schema = {",
+									"        type: \"object\",",
+									"        properties:{",
+									"            \"username\": {\"type\":\"string\"},",
+									"            \"id\": {\"type\":\"string\"},",
+									"            \"group\": {\"type\":\"string\"}",
+									"        },",
+									"        required: [\"username\",\"id\"]",
+									"    }",
+									"",
+									"    const validate = ajv.compile(schema);",
+									"    const responseBody = pm.response.json();",
+									"    const isValid = validate(responseBody);",
+									"    pm.expect(isValid).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time\",()=>{",
+									"    pm.expect(pm.response.responseTime).to.be.lessThan(1000)",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "show-headers",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Max\",\n    \"password\": \"123123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}:{{port}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserSignin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Success testcases",
+									"if (pm.request.body.username !== undefined || pm.request.body.pasword !== undefined){",
+									"    pm.test(\"Success response\",function(){",
+									"        pm.response.to.have.status(200)",
+									"    })",
+									"}",
+									"",
+									"pm.test(\"Header should be returned on success request\",()=>{        ",
+									"    pm.expect(pm.response.headers.get(\"Authentication\")).to.be.not.null;",
+									"    pm.expect(pm.response.headers.get(\"Authentication\")).to.be.not.undefined;",
+									"    pm.collectionVariables.set(\"tokenData\",pm.response.headers.get(\"Authentication\"));",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Max\",\n    \"password\": \"123123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}:{{port}}/users/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Multiple Products addition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Counting the objects returned\", () => {",
+									"    //[\"1e0b8509\",'bc2cb372']",
+									"    let keyArrary = Object.keys(pm.response.json());",
+									"    pm.expect(keyArrary).to.have.lengthOf(2);",
+									"})",
+									"",
+									"pm.collectionVariables.unset(\"tokenData\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const tokenData = pm.collectionVariables.get(\"tokenData\");",
+									"pm.request.headers.add({\"key\":\"Authorization\",\"value\": \"Bearer \"+tokenData})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"title\": \"BMW\",\n        \"price\": 131233,\n        \"description\": \"sports car\"\n    },\n    {\n        \"title\": \"Ferrari\",\n        \"price\": 18923819,\n        \"description\": \"Very fast car\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}:{{port}}/products/multiple",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"products",
+								"multiple"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Testing for Failures",
+			"item": [
+				{
+					"name": "UserSignin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Failure response Status code check\",function(){",
+									"    pm.response.to.have.status(400)",
+									"})",
+									"",
+									"pm.test(\"Failure response Status code check\",function(){",
+									"    pm.expect(pm.response.text()).to.eql(\"Username or password is incorrect\")",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"Max\",\n    \"password\": \"12123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}:{{port}}/users/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Auth Test",
+			"item": [
+				{
+					"name": "UserCreate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const Ajv = require(\"ajv\");",
+									"const ajv = Ajv();",
+									"",
+									"pm.test(\"Success status code check \",()=>{",
+									"    pm.response.to.have.status(201);",
+									"})",
+									"",
+									"pm.test(\"Response body must contain username and ID\",()=>{",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.username).to.equal(JSON.parse(pm.request.body).username);",
+									"    pm.expect(responseData.id).to.be.not.null;",
+									"})",
+									"",
+									"pm.test(\"Schema validation\",()=>{",
+									"    const schema = {",
+									"        type: \"object\",",
+									"        properties:{",
+									"            \"username\": {\"type\":\"string\"},",
+									"            \"id\": {\"type\":\"string\"},",
+									"            \"group\": {\"type\":\"string\"}",
+									"        },",
+									"        required: [\"username\",\"id\"]",
+									"    }",
+									"",
+									"    const validate = ajv.compile(schema);",
+									"    const responseBody = pm.response.json();",
+									"    const isValid = validate(responseBody);",
+									"    pm.expect(isValid).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response time\",()=>{",
+									"    pm.expect(pm.response.responseTime).to.be.lessThan(1000)",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var body = {",
+									"    \"username\": pm.iterationData.get(\"username\"),",
+									"    \"password\": pm.iterationData.get(\"password\")",
+									"}",
+									"",
+									"pm.collectionVariables.set(\"reqBody\",JSON.stringify(body));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "show-headers",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{reqBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}:{{port}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserSignin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Success testcases",
+									"if (pm.request.body.username !== undefined || pm.request.body.pasword !== undefined){",
+									"    pm.test(\"Success response\",function(){",
+									"        pm.response.to.have.status(200)",
+									"    })",
+									"}",
+									"",
+									"pm.test(\"Header should be returned on success request\",()=>{        ",
+									"    pm.expect(pm.response.headers.get(\"Authentication\")).to.be.not.null;",
+									"    pm.expect(pm.response.headers.get(\"Authentication\")).to.be.not.undefined;",
+									"    pm.collectionVariables.set(\"tokenData\",pm.response.headers.get(\"Authentication\"));",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{reqBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}:{{port}}/users/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "req_body",
+			"value": ""
+		},
+		{
+			"key": "tokenData",
+			"value": ""
+		},
+		{
+			"key": "reqBody",
+			"value": ""
+		}
+	]
+}
