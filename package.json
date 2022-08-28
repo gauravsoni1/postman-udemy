@@ -7,9 +7,9 @@
     "dev:mac": "cross-env NODE_ENV=dev nodemon src/index.js",
     "stage:mac": "cross-env NODE_ENV=stage nodemon src/index.js",
     "prod:mac": "cross-env NODE_ENV=prod nodemon src/index.js",
-    "dev:windows": "cross-env NODE_ENV=dev && nodemon src/index.js",
-    "stage:windows": "cross-env NODE_ENV=stage && nodemon src/index.js",
-    "prod:windows": "cross-env NODE_ENV=prod && nodemon src/index.js"
+    "dev:windows": "cross-env NODE_ENV=dev nodemon src/index.js",
+    "stage:windows": "cross-env NODE_ENV=stage nodemon src/index.js",
+    "prod:windows": "cross-env NODE_ENV=prod nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
