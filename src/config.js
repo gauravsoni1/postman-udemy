@@ -1,12 +1,6 @@
-const dotenv = require("dotenv");
+const fs = require("fs");
 const path = require("path");
 
-dotenv.config({
-  path: path.resolve(__dirname + `/../${process.env.NODE_ENV}` + ".env"),
-});
+const serverCofig = JSON.parse(fs.readFileSync(path.resolve(__dirname + `/../${process.env.NODE_ENV}` + ".json"), { encoding: "utf-8" }));
 
-module.exports = {
-  NODE_ENV: process.env.NODE_ENV || "development",
-  HOST: process.env.HOST || "127.0.0.1",
-  PORT: process.env.PORT || 3000,
-};
+module.exports = serverCofig;

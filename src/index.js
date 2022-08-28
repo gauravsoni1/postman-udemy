@@ -7,7 +7,7 @@ const config = require("./config");
 
 //Routes
 const SearchRouter = require("./routes/search");
-const {router: UserRouter} = require("./routes/user");
+const { router: UserRouter } = require("./routes/user");
 const ProductRouter = require("./routes/product");
 const OrderRouter = require("./routes/order");
 
