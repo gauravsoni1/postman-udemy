@@ -1,0 +1,421 @@
+{
+    "info": {
+        "_postman_id": "c4cc21ac-f5e8-493b-b8a3-8c6a2c32689b",
+        "name": "E-Commerce 1.0",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "users",
+            "item": [
+                {
+                    "name": "/users",
+                    "id": "751069d1-b0b4-4cde-9326-59bf88bdcd6d",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"Alex\",\n    \"password\": \"123123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/users",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "users"
+                            ]
+                        },
+                        "description": "Create a new user in the application"
+                    },
+                    "response": [
+                        {
+                            "id": "87f8578c-776b-44cd-9fa1-38d5d7320ac2",
+                            "name": "User created successfully",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"username\": \"Alex\",\n    \"password\": \"123123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/users",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "users"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "\"user was added successfully\""
+                        }
+                    ]
+                },
+                {
+                    "name": "/users/signin",
+                    "id": "18f59073-d22d-443e-898a-ef5ad956368b",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"Alex\",\n    \"password\": \"123123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/users/signin",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "users",
+                                "signin"
+                            ]
+                        },
+                        "description": "Sigin the user and respond with the auth token"
+                    },
+                    "response": [
+                        {
+                            "id": "e32dee80-85c7-4f8f-98cd-79c81e86b6c3",
+                            "name": "Auth token send to the client",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"username\": \"Alex\",\n    \"password\": \"123123\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/users/signin",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "users",
+                                        "signin"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n \"authToken\": \"ea\"\n}"
+                        }
+                    ]
+                }
+            ],
+            "id": "e6ec6156-6ed3-4a79-be98-8792220e43ee"
+        },
+        {
+            "name": "favourites",
+            "item": [
+                {
+                    "name": "{listname}/{userid}",
+                    "item": [
+                        {
+                            "name": "/favourites/:listname/:userid",
+                            "id": "e3b0c8bc-8c74-4b54-9786-fc7f92c8eb68",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{baseUrl}}/favourites/:listname/:userid",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "favourites",
+                                        ":listname",
+                                        ":userid"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "id": "77f4f388-e903-48e1-bef7-88e35acddda8",
+                                            "key": "listname",
+                                            "value": "est",
+                                            "description": "(Required) "
+                                        },
+                                        {
+                                            "id": "f813bcc4-ddd5-4748-87cd-47f9cc0e19b0",
+                                            "key": "userid",
+                                            "value": "est",
+                                            "description": "(Required) "
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": [
+                                {
+                                    "id": "9d5dd2c7-4288-4c87-8f82-e92757030ada",
+                                    "name": "List was retrived sucessfully",
+                                    "originalRequest": {
+                                        "method": "GET",
+                                        "header": [],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/favourites/:listname/:userid",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "favourites",
+                                                ":listname",
+                                                ":userid"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "listname",
+                                                    "value": "est",
+                                                    "description": "(Required) "
+                                                },
+                                                {
+                                                    "key": "userid",
+                                                    "value": "est",
+                                                    "description": "(Required) "
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"listName\": \"Electronics\",\n \"listItems\": [\n  {\n   \"itemName\": \"iphone\",\n   \"itemPrice\": 778,\n   \"category\": \"Mobile\"\n  },\n  {\n   \"itemName\": \"LG tv\",\n   \"itemPrice\": 899,\n   \"category\": \"TV\"\n  }\n ]\n}"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "/favourites/:listname/:userid",
+                            "id": "60539558-35af-45b5-a9c1-bb61067ac718",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [
+                                    {
+                                        "description": "(Required) ",
+                                        "key": "authtoken",
+                                        "value": "est"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/favourites/:listname/:userid",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "favourites",
+                                        ":listname",
+                                        ":userid"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "id": "818b9518-df9a-436a-9dcd-7feea6a6a22c",
+                                            "key": "userid",
+                                            "value": "est",
+                                            "description": "(Required) "
+                                        },
+                                        {
+                                            "id": "d05387ef-da7a-4969-9b86-039353e678de",
+                                            "key": "listname",
+                                            "value": "est",
+                                            "description": "(Required) "
+                                        }
+                                    ]
+                                },
+                                "description": "Delete a favourites list"
+                            },
+                            "response": [
+                                {
+                                    "id": "51d0dc0b-27e0-4e37-b25a-505f0e71c591",
+                                    "name": "List was deleted successfully",
+                                    "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                            {
+                                                "description": "(Required) ",
+                                                "key": "authtoken",
+                                                "value": "est"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{baseUrl}}/favourites/:listname/:userid",
+                                            "host": [
+                                                "{{baseUrl}}"
+                                            ],
+                                            "path": [
+                                                "favourites",
+                                                ":listname",
+                                                ":userid"
+                                            ],
+                                            "variable": [
+                                                {
+                                                    "key": "userid",
+                                                    "value": "est",
+                                                    "description": "(Required) "
+                                                },
+                                                {
+                                                    "key": "listname",
+                                                    "value": "est",
+                                                    "description": "(Required) "
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "status": "OK",
+                                    "code": 200,
+                                    "_postman_previewlanguage": "json",
+                                    "header": [
+                                        {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                        }
+                                    ],
+                                    "cookie": [],
+                                    "responseTime": null,
+                                    "body": "{\n \"code\": 200,\n \"msg\": \"List was deleted succesfully\"\n}"
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "8fca4ae6-c2e6-4e9c-a373-94d7f023c6c1"
+                },
+                {
+                    "name": "/favourites",
+                    "id": "ccd87b7e-2aa3-4828-91d9-5af4bf51a031",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"listName\": \"Electronics\",\n    \"listItems\": [\n        {\n            \"itemName\": \"iphone\",\n            \"itemPrice\": 778,\n            \"category\": \"Mobile\"\n        },\n        {\n            \"itemName\": \"LG tv\",\n            \"itemPrice\": 899,\n            \"category\": \"TV\"\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/favourites",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "favourites"
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "id": "41fad9ba-5e9c-4caa-9916-731df0ce958a",
+                            "name": "The Product was added successfully",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"listName\": \"Electronics\",\n    \"listItems\": [\n        {\n            \"itemName\": \"iphone\",\n            \"itemPrice\": 778,\n            \"category\": \"Mobile\"\n        },\n        {\n            \"itemName\": \"LG tv\",\n            \"itemPrice\": 899,\n            \"category\": \"TV\"\n        }\n    ]\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "{{baseUrl}}/favourites",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "favourites"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n \"code\": 201,\n \"msg\": \"The favourites list was created\"\n}"
+                        }
+                    ]
+                }
+            ],
+            "id": "5e2f64b5-acd2-4cc7-9fa4-9277ab576c6c"
+        }
+    ],
+    "variable": [
+        {
+            "id": "307a89b6-bb11-4521-8538-275c2e48acbc",
+            "key": "baseUrl",
+            "value": "https://2295e730-ca1e-4dbb-91c0-8e7ada59ee26.mock.pstmn.io",
+            "type": "string"
+        }
+    ]
+}
